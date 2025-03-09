@@ -19,6 +19,8 @@ export function add(numbers: string): number {
   for (let num of nums) {
     const parsedNumber = parseInt(num);
 
+    if (isNaN(parsedNumber)) continue;
+
     if (parsedNumber < 0) {
       negativeNumbers.push(parsedNumber);
     }

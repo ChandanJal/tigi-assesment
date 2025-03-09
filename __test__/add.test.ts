@@ -88,4 +88,16 @@ describe("Add Function", () => {
     // Assert
     expect(result).toBe(output);
   });
+
+  it("should avoid string from the number", () => {
+    // Arrange
+    const input = "1,2,3,four,5,six";
+    const output = 11;
+
+    // Act
+    const result = add(input);
+
+    // Assert
+    expect(result).toBe(output);
+  });
 });
