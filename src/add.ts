@@ -1,5 +1,5 @@
 export function add(numbers: string): number {
-  if (numbers.length === 0) return 0;
+  if (isEmpty(numbers)) return 0;
 
   const regex = /\n|,/;
   const nums = numbers.split(regex).map((num) => num.trim());
@@ -25,4 +25,8 @@ export function add(numbers: string): number {
     );
 
   return sum;
+}
+
+function isEmpty(str: string): boolean {
+  return str.length === 0;
 }
