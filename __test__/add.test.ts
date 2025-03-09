@@ -74,6 +74,6 @@ describe("Add Function", () => {
     const input = "1,-2,3,-4";
 
     // Act & Assert
-    expect(() => add(input)).toThrow("negative numbers not allowed -2");
+    expect(() => add(input)).toThrow("negative numbers not allowed -2, -4");
   });
 });

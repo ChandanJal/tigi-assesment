@@ -6,14 +6,23 @@ export function add(numbers: string): number {
 
   let sum: number = 0;
 
+  const negativeNumbers = [];
+
   for (let num of nums) {
     const parsedNumber = parseInt(num);
 
-    if (parsedNumber < 0)
-      throw new Error(`negative numbers not allowed ${parsedNumber}`);
+    if (parsedNumber < 0) {
+      negativeNumbers.push(parsedNumber);
+    }
 
     sum += parseInt(num);
   }
+
+  // Check if there any negetiveNumbers
+  if (negativeNumbers.length > 0)
+    throw new Error(
+      `negative numbers not allowed ${negativeNumbers.join(", ")}`
+    );
 
   return sum;
 }
