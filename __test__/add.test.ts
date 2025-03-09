@@ -69,13 +69,11 @@ describe("Add Function", () => {
     expect(result).toBe(output);
   });
 
-  // it("should throw an exception: 'negative numbers not allowed <negative_number>'", () => {
-  //   // Arrange
-  //   const input = "1,-2,3,-4";
+  it("should throw an exception: 'negative numbers not allowed <negative_number>'", () => {
+    // Arrange
+    const input = "1,-2,3,-4";
 
-  //   // Act
-
-  //   // Assert
-  //   expect(add(input)).toThrow("negative numbers not allowed -2");
-  // });
+    // Act & Assert
+    expect(() => add(input)).toThrow("negative numbers not allowed -2");
+  });
 });
