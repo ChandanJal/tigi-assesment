@@ -1,5 +1,16 @@
 import { add } from "../src/add";
 
-test("adds 1 + 2 to equal 3", () => {
-  expect(add("1,2")).toBe(3);
+describe("Add", () => {
+  it("should add 1, 4, 5, 6 upto 16", () => {
+    // Arrange
+    const arr = [1, 4, 5, 6];
+    const sum = arr.reduce((a, b) => a + b, 0);
+    const arrStr = arr.join(",");
+
+    // Act
+    const result = add(arrStr);
+
+    // Assert
+    expect(result).toBe(sum);
+  });
 });
