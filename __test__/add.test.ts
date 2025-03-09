@@ -76,4 +76,16 @@ describe("Add Function", () => {
     // Act & Assert
     expect(() => add(input)).toThrow("negative numbers not allowed -2, -4");
   });
+
+  it("should support different delimiters", () => {
+    // Arrange
+    const input = "//;\n1;2";
+    const output = 3;
+
+    // Act
+    const result = add(input);
+
+    // Assert
+    expect(result).toBe(output);
+  });
 });

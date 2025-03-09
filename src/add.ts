@@ -1,8 +1,16 @@
 export function add(numbers: string): number {
   if (isEmpty(numbers)) return 0;
 
-  const regex = /\n|,/;
-  const nums = numbers.split(regex).map((num) => num.trim());
+  let delimiter = /\n|,/;
+  if (numbers.startsWith("//")) {
+    const delimiterMatch = numbers.match(/^\/\/(.+)\n/);
+    if (delimiterMatch) {
+      delimiter = new RegExp(delimiterMatch[1]);
+      numbers = numbers.substring(delimiterMatch[0].length);
+    }
+  }
+
+  const nums = numbers.split(delimiter).map((num) => num.trim());
 
   let sum: number = 0;
 
