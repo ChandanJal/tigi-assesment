@@ -56,4 +56,16 @@ describe("Add Function", () => {
     expect(midArrayResult).toBe(midArraySum);
     expect(largeArrayResult).toBe(largeArraySum);
   });
+
+  it("should handle new lines between numbers (instead of commas). ('1\n2,3' should return 6)", () => {
+    // Arrange
+    const input = "1\n2,3";
+    const output = 6;
+
+    // Act
+    const result = add(input);
+
+    // Asset
+    expect(result).toBe(output);
+  });
 });
