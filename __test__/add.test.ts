@@ -1,17 +1,29 @@
 import { add } from "../src/add";
 
-describe("Add", () => {
-  it("should return 0 on empty string", () => {
-    // Assets
+describe("Add Function", () => {
+  it("should return 0 on empty string.", () => {
+    // Arrange
     const emptyString = "";
 
     // Act
     const result = add(emptyString);
 
+    // Asset
     expect(result).toBe(0);
   });
 
-  it("should add 1, 4, 5, 6 upto 16", () => {
+  it("should return same output for single input number.", () => {
+    // Arrange
+    const input = "1";
+
+    // Act
+    const result = add(input);
+
+    // Assert
+    expect(result).toBe(parseInt(input));
+  });
+
+  it("should add 1, 4, 5, 6 upto 16.", () => {
     // Arrange
     const arr = [1, 4, 5, 6];
     const sum = arr.reduce((a, b) => a + b, 0);
