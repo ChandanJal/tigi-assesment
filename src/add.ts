@@ -1,31 +1,18 @@
 export function add(numbers: string): number {
   if (isEmpty(numbers)) return 0;
 
-  let delimiter = /\n|,/;
-  if (numbers.startsWith("//")) {
-    const delimiterMatch = numbers.match(/^\/\/(.+)\n/);
+  let delimiter = getDelimiter(numbers);
+  numbers = sanitizeNumbersString(numbers);
 
-    if (delimiterMatch) {
-      const pattern = `\\${delimiterMatch[1]}`;
+  const nums = parseTextToNumberArray(numbers, delimiter);
 
-      delimiter = new RegExp(pattern);
+  throwIfAnyNegativePresent(nums);
 
-      numbers = numbers.substring(delimiterMatch[0].length);
-    }
-  }
+  return performOperation(nums, delimiter);
+}
 
-  const nums = numbers
-    .split(delimiter)
-    .map((num) => parseInt(num.trim()))
-    .filter((num) => !isNaN(num));
-
-  const negativeNumbers: number[] = [];
-
-  const sum = nums.reduce((a, b) => {
-    if (b < 0) {
-      negativeNumbers.push(b);
-    }
-
+function performOperation(nums: number[], delimiter: RegExp): number {
+  return nums.reduce((a, b) => {
     if (delimiter.test("\\*")) {
       if (a === 0) return b;
       else return a * b;
@@ -33,14 +20,37 @@ export function add(numbers: string): number {
 
     return a + b;
   }, 0);
+}
+
+function getDelimiter(numbers: string): RegExp {
+  if (numbers.startsWith("//")) {
+    const delimiterMatch = numbers.match(/^\/\/(.+)\n/);
+    if (delimiterMatch) return new RegExp(`\\${delimiterMatch[1]}`);
+  }
+  return /\n|,/;
+}
+
+function sanitizeNumbersString(numbers: string): string {
+  return numbers.startsWith("//")
+    ? numbers.substring(numbers.indexOf("\n") + 1)
+    : numbers;
+}
+
+function parseTextToNumberArray(numbers: string, delimiter: RegExp) {
+  return numbers
+    .split(delimiter)
+    .map((num) => parseInt(num.trim()))
+    .filter((num) => !isNaN(num));
+}
+
+function throwIfAnyNegativePresent(nums: number[]) {
+  const negativeNumbers = nums.filter((n) => n < 0);
 
   // Check if there any negetiveNumbers
   if (negativeNumbers.length > 0)
     throw new Error(
       `negative numbers not allowed ${negativeNumbers.join(", ")}`
     );
-
-  return sum;
 }
 
 function isEmpty(str: string): boolean {
