@@ -14,31 +14,25 @@ export function add(numbers: string): number {
     }
   }
 
-  const nums = numbers.split(delimiter).map((num) => num.trim());
+  const nums = numbers
+    .split(delimiter)
+    .map((num) => parseInt(num.trim()))
+    .filter((num) => !isNaN(num));
 
-  let sum: number = 0;
+  const negativeNumbers: number[] = [];
 
-  const negativeNumbers = [];
-
-  for (let num of nums) {
-    const parsedNumber = parseInt(num);
-
-    if (isNaN(parsedNumber)) continue;
-
-    if (parsedNumber < 0) {
-      negativeNumbers.push(parsedNumber);
+  const sum = nums.reduce((a, b) => {
+    if (b < 0) {
+      negativeNumbers.push(b);
     }
 
     if (delimiter.test("\\*")) {
-      if (sum === 0) {
-        sum = parseInt(num);
-      } else {
-        sum *= parseInt(num);
-      }
-    } else {
-      sum += parseInt(num);
+      if (a === 0) return b;
+      else return a * b;
     }
-  }
+
+    return a + b;
+  }, 0);
 
   // Check if there any negetiveNumbers
   if (negativeNumbers.length > 0)
