@@ -1,11 +1,17 @@
 export function add(numbers: string): number {
   if (isEmpty(numbers)) return 0;
 
-  let delimiter = /\n|,/;
+  let delimiter: string | RegExp = /\n|,/;
   if (numbers.startsWith("//")) {
     const delimiterMatch = numbers.match(/^\/\/(.+)\n/);
+
     if (delimiterMatch) {
-      delimiter = new RegExp(delimiterMatch[1]);
+      if (delimiterMatch[1] === "*") {
+        delimiter = "*";
+      } else {
+        delimiter = new RegExp(delimiterMatch[1]);
+      }
+
       numbers = numbers.substring(delimiterMatch[0].length);
     }
   }
@@ -25,7 +31,15 @@ export function add(numbers: string): number {
       negativeNumbers.push(parsedNumber);
     }
 
-    sum += parseInt(num);
+    if (delimiter === "*") {
+      if (sum === 0) {
+        sum = parseInt(num);
+      } else {
+        sum *= parseInt(num);
+      }
+    } else {
+      sum += parseInt(num);
+    }
   }
 
   // Check if there any negetiveNumbers

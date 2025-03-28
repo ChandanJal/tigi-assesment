@@ -100,4 +100,16 @@ describe("Add Function", () => {
     // Assert
     expect(result).toBe(output);
   });
+
+  it.only("should multiply if the the delimiter is *", () => {
+    // Arrange
+    const input = "//*\n1*2*3*4";
+    const output = 1 * 2 * 3 * 4;
+
+    // Act
+    const result = add(input);
+
+    // Assert
+    expect(result).toBe(output);
+  });
 });
